@@ -1,0 +1,452 @@
+[
+  {
+    "_id": "6a43f4b010a3c920353b0ab5",
+    "name": "Maruti Suzuki Ertiga",
+    "slug": "maruti-suzuki-ertiga",
+    "image": "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop",
+    "seats": 6,
+    "type": "SUV / Cars",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "CNG",
+    "gallery": [
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1609708536965-5e7281b16e31?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1606611013016-969c19c27c91?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "AC / Heater",
+      "Bluetooth Audio",
+      "Plentiful Luggage Space",
+      "Large Boot Space",
+      "Mobile Charging Ports"
+    ],
+    "specifications": {
+      "capacity": "6 Passengers + 1 Driver",
+      "luggage": "2 Large Bags + 1 Small Bag",
+      "engine": "1.5L Petrol / CNG",
+      "comfort": "Plush Fabric Seats with Center Armrest",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "Perfect for airport transfers, executive city rides, and small family trips. Highly fuel-efficient, silent cabin, and well-maintained.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 16,
+      "nonAc": 16,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Perfect for airport transfers, executive city rides, and small family trips. Highly fuel-efficient, silent cabin, and well-maintained.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.639Z",
+    "updatedAt": "2026-06-30T16:54:08.639Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0ab7",
+    "name": "Premium SUV (Innova Crysta)",
+    "slug": "premium-suv-innova-crysta",
+    "image": "https://images.unsplash.com/photo-1609708536965-5e7281b16e31?w=600&h=400&fit=crop",
+    "seats": 7,
+    "type": "SUV / Cars",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1609708536965-5e7281b16e31?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1606611013016-969c19c27c91?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Individual AC Vents",
+      "Captain Seats",
+      "Airbags & ABS",
+      "Plush Leatherette Interior",
+      "Ambient Lighting"
+    ],
+    "specifications": {
+      "capacity": "7 Passengers + 1 Driver",
+      "luggage": "4 Large Bags",
+      "engine": "2.5L Powerful Diesel",
+      "comfort": "Premium Captain Seats with Armrests",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "The gold standard for long-distance highway travel. Superior suspension, maximum safety, and absolute VIP comfort.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 20,
+      "nonAc": 20,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "The gold standard for long-distance highway travel. Superior suspension, maximum safety, and absolute VIP comfort.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.639Z",
+    "updatedAt": "2026-06-30T16:54:08.639Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0ab9",
+    "name": "Force Traveller (Large) Tourist Vehicle",
+    "slug": "force-traveller-large-tourist-vehicle",
+    "image": "https://images.unsplash.com/photo-1537821552062-20c1d8a81a67?w=600&h=400&fit=crop",
+    "seats": 20,
+    "type": "Mini Bus",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1537821552062-20c1d8a81a67?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1556821552-5f63b1c2c534?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1494976866556-6812c9d1c72e?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Forced AC Cooling",
+      "Comfort Seats",
+      "Audio Player",
+      "Window Curtains",
+      "Overhead Racks"
+    ],
+    "specifications": {
+      "capacity": "20 Passengers + 1 Driver",
+      "luggage": "18 Bags",
+      "engine": "2.6LTurbo Charged Intercooled",
+      "comfort": "1x1 Executive Layout Available",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "Designed for corporate shuttles and school group weekend picnics. Offers highly balanced seating density and stability.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 27,
+      "nonAc": 24,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Designed for corporate shuttles and school group weekend picnics. Offers highly balanced seating density and stability.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.639Z",
+    "updatedAt": "2026-06-30T16:54:08.639Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0aba",
+    "name": "Force Traveller (Luxury Coach) Tourist Vehicle",
+    "slug": "force-traveller-luxury-coach-tourist-vehicle",
+    "image": "https://images.unsplash.com/photo-1494976866556-6812c9d1c72e?w=600&h=400&fit=crop",
+    "seats": 26,
+    "type": "Luxury Bus",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1494976866556-6812c9d1c72e?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1537821552062-20c1d8a81a67?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1556821552-5f63b1c2c534?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Engine-driven AC",
+      "Mic System",
+      "Pushback Velvet Seats",
+      "Rear Dumper Airbag suspension",
+      "Passenger Seat belts"
+    ],
+    "specifications": {
+      "capacity": "26 Passengers + 2 Crew",
+      "luggage": "20 Large Bags",
+      "engine": "Multi-point Fuel Injection",
+      "comfort": "Soft Premium Cushion Seating",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "Perfect for destination wedding guest transport and large group religious pilgrimages. Features a highly stable chassis.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 32,
+      "nonAc": 30,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Perfect for destination wedding guest transport and large group religious pilgrimages. Features a highly stable chassis.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.640Z",
+    "updatedAt": "2026-06-30T16:54:08.640Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0ab8",
+    "name": "Force Traveller Tourist Vechicle",
+    "slug": "force-traveller-tourist-vechicle",
+    "image": "https://images.unsplash.com/photo-1556821552-5f63b1c2c534?w=600&h=400&fit=crop",
+    "seats": 17,
+    "type": "Mini Bus",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1556821552-5f63b1c2c534?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1537821552062-20c1d8a81a67?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1494976866556-6812c9d1c72e?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Roof AC Ducts",
+      "Pushback Luxury Seats",
+      "LCD Screen & Music System",
+      "Spacious Boot Space",
+      "LED Lighting"
+    ],
+    "specifications": {
+      "capacity": "17 Passengers + 1 Driver",
+      "luggage": "15 Medium Bags",
+      "engine": "2.6L Common Rail Diesel",
+      "comfort": "High-Roof Cabin with Reclining Seats",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "Ideal for family outings, weddings, and group excursions. High ceiling allows standing space, and rear luggage holds extra gear.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 26,
+      "nonAc": 23,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Ideal for family outings, weddings, and group excursions. High ceiling allows standing space, and rear luggage holds extra gear.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.639Z",
+    "updatedAt": "2026-06-30T16:54:08.639Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0ab6",
+    "name": "Classic (Toyota Innova)",
+    "slug": "classic-toyota-innova",
+    "image": "https://images.unsplash.com/photo-1606611013016-969c19c27c91?w=600&h=400&fit=crop",
+    "seats": 7,
+    "type": "SUV / Cars",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1606611013016-969c19c27c91?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1609708536965-5e7281b16e31?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Rear AC Vents",
+      "Spacious Legroom",
+      "Foldable Seats",
+      "GPS Tracking",
+      "Sound System"
+    ],
+    "specifications": {
+      "capacity": "7+1 Kid Passengers + 1 Driver",
+      "luggage": "3 Medium Bags",
+      "engine": "2.5L Turbo Diesel",
+      "comfort": "Reclining Second Row Seats",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "Great budget option for families exploring Maharashtra. High ground clearance, double-row cooling, and comfortable ride.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 20,
+      "nonAc": 20,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Great budget option for families exploring Maharashtra. High ground clearance, double-row cooling, and comfortable ride.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.639Z",
+    "updatedAt": "2026-06-30T16:54:08.639Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0abd",
+    "name": "Non-AC Luxury Coach",
+    "slug": "non-ac-luxury-coach",
+    "image": "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&h=400&fit=crop",
+    "seats": 49,
+    "type": "Luxury Bus",
+    "ac": false,
+    "registrationNumber": "",
+    "fuelType": "Electric",
+    "gallery": [
+      "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Dual Climate Compressors",
+      "Soft Air Suspension",
+      "Full PA Audio System",
+      "Mobile Phone USB Chargers",
+      "Spacious Aisle"
+    ],
+    "specifications": {
+      "capacity": "49 Passengers + 2 Crew",
+      "luggage": "50 Large Suitcases",
+      "engine": "Heavy Duty Multi-Cylinder Engine",
+      "comfort": "High Backrest Recliners with Plush Padding",
+      "airConditioning": "Non-AC / Heater Option"
+    },
+    "cabinDescription": "Maximum capacity coach suited for pilgrimage operations, corporate offsite events, and high-volume tourism. Excellent reliability.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 56,
+      "nonAc": 48,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Maximum capacity coach suited for pilgrimage operations, corporate offsite events, and high-volume tourism. Excellent reliability.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.640Z",
+    "updatedAt": "2026-06-30T16:54:08.640Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0abb",
+    "name": "Luxury Bus Non-AC",
+    "slug": "luxury-bus-non-ac",
+    "image": "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop",
+    "seats": 37,
+    "type": "Luxury Bus",
+    "ac": false,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Climate Control AC",
+      "Pneumatic Air Suspension",
+      "Under-bus Luggage Hold",
+      "PA System with Mic",
+      "LED TV Entertainment"
+    ],
+    "specifications": {
+      "capacity": "37 Passengers + 2 Crew",
+      "luggage": "30 Large Suitcases",
+      "engine": "High Torque Engine Diesel",
+      "comfort": "Premium Reclining Seats with Leg Rest",
+      "airConditioning": "Non-AC / Heater Option"
+    },
+    "cabinDescription": "Our luxury coach option for premium tour groups, corporate seminars, and long-distance travel. Extremely quiet and comfortable ride.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 45,
+      "nonAc": 38,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Our luxury coach option for premium tour groups, corporate seminars, and long-distance travel. Extremely quiet and comfortable ride.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.640Z",
+    "updatedAt": "2026-06-30T16:54:08.640Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4b010a3c920353b0abc",
+    "name": "AC Luxury Coach",
+    "slug": "ac-luxury-coach",
+    "image": "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&h=400&fit=crop",
+    "seats": 49,
+    "type": "Luxury Bus",
+    "ac": true,
+    "registrationNumber": "",
+    "fuelType": "Diesel",
+    "gallery": [
+      "https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?w=600&h=400&fit=crop"
+    ],
+    "amenities": [
+      "Zoned Air Conditioning",
+      "Custom Reading Lights",
+      "High Definition TV Screens",
+      "Large Under-Belly Storage",
+      "Tinted Safety Glasses"
+    ],
+    "specifications": {
+      "capacity": "49 Passengers + 2 Crew",
+      "luggage": "40 Large Suitcases",
+      "engine": "Powerful Heavy-Duty Diesel Engine",
+      "comfort": "Plush Reclining Chairs with Air Suspension for Smooth Ride",
+      "airConditioning": "Dual AC Climate Control Vents"
+    },
+    "cabinDescription": "Premium passenger bus for large school outings, industrial visits, and grand weddings. Offers superb safety metrics.",
+    "pricing": {
+      "type": "per_km",
+      "ac": 56,
+      "nonAc": 48,
+      "label": "Per KM",
+      "description": "Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.",
+      "driverAllowance": 500,
+      "tollIncluded": false,
+      "parkingIncluded": false,
+      "permit": 0
+    },
+    "status": "Available",
+    "active": true,
+    "description": "Premium passenger bus for large school outings, industrial visits, and grand weddings. Offers superb safety metrics.",
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:08.640Z",
+    "updatedAt": "2026-06-30T16:54:08.640Z",
+    "__v": 0
+  }
+]

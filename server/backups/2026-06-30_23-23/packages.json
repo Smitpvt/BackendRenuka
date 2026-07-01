@@ -1,0 +1,598 @@
+[
+  {
+    "_id": "6a43f4af10a3c920353b0a75",
+    "title": "Lonavala Weekend Getaway",
+    "slug": "lonavala-weekend-getaway",
+    "category": "Weekend Trips",
+    "duration": "1 Night / 2 Days",
+    "desc": "Enjoy a scenic getaway to Lonavala with comfortable travel, breathtaking viewpoints, waterfalls, and historic caves. Perfect for families, groups, and weekend travelers.",
+    "image": "/images/packages/lonavala.jpg",
+    "gallery": [],
+    "featured": true,
+    "active": true,
+    "pricing": {
+      "ac": 18000,
+      "nonAc": 16000,
+      "tollIncluded": false,
+      "customQuote": false
+    },
+    "highlights": [
+      "Tiger Point",
+      "Bhushi Dam",
+      "Karla Caves",
+      "Bhaja Caves",
+      "Professional Driver",
+      "AC & Non AC Vehicle Options"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.771Z",
+    "updatedAt": "2026-06-30T16:54:07.771Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a79",
+    "title": "Karjat Nature Escape",
+    "slug": "karjat-nature-escape",
+    "category": "Weekend Trips",
+    "duration": "1 Day / Custom",
+    "desc": "Discover Karjat's natural beauty, waterfalls, caves, and countryside landscapes with a refreshing one-day escape.",
+    "image": "/images/packages/karjat.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "ac": 18000,
+      "nonAc": 16000,
+      "tollIncluded": false,
+      "customQuote": false
+    },
+    "highlights": [
+      "Kondana Caves",
+      "Bhivpuri Waterfall",
+      "Nature Trails",
+      "Custom Pickup & Drop",
+      "Professional Driver",
+      "AC & Non AC Options"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a7b",
+    "title": "Igatpuri Getaway",
+    "slug": "igatpuri-getaway",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Explore the misty hills of Igatpuri, known for scenic valleys, mountain views, and a refreshing escape from city life.",
+    "image": "/images/packages/igatpuri.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Camel Valley",
+      "Bhatsa River Valley",
+      "Vipassana Center",
+      "Mountain Views",
+      "Custom Travel Plans",
+      "Professional Driver"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a7d",
+    "title": "Saputara Hill Station Tour",
+    "slug": "saputara-hill-station-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Discover Saputara's serene landscapes, lakes, and hill station charm with a comfortable family-friendly journey.",
+    "image": "/images/packages/saputara.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Hill Station Views",
+      "Sunset Points",
+      "Lake Area",
+      "Nature Trails",
+      "Group Friendly",
+      "Custom Pickup"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a7e",
+    "title": "Tuljapur Darshan",
+    "slug": "tuljapur-darshan",
+    "category": "Pilgrimage",
+    "duration": "Custom Trip",
+    "desc": "Seek blessings at the revered Tuljabhavani Temple with safe, comfortable, and well-organized pilgrimage travel.",
+    "image": "/images/packages/tuljapur.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Tuljabhavani Temple",
+      "Comfortable Travel",
+      "Custom Route Planning",
+      "Professional Driver",
+      "Family Friendly",
+      "AC & Non AC Vehicles"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a7f",
+    "title": "Akkalkot Darshan",
+    "slug": "akkalkot-darshan",
+    "category": "Pilgrimage",
+    "duration": "Custom Trip",
+    "desc": "Visit the sacred town of Akkalkot and experience a peaceful spiritual journey to the famous Swami Samarth Temple.",
+    "image": "/images/packages/akkalkot.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Swami Samarth Temple",
+      "Family Travel",
+      "Flexible Pickup",
+      "Clean Vehicles",
+      "Experienced Drivers",
+      "Custom Plans"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a80",
+    "title": "Pandharpur Darshan",
+    "slug": "pandharpur-darshan",
+    "category": "Pilgrimage",
+    "duration": "Custom Trip",
+    "desc": "Travel comfortably to Pandharpur and visit the holy Vitthal Temple, one of Maharashtra's most important pilgrimage destinations.",
+    "image": "/images/packages/pandharpur.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Vitthal Temple",
+      "Group Travel",
+      "Comfortable Journey",
+      "Custom Route",
+      "AC & Non AC Options",
+      "Professional Driver"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a81",
+    "title": "Jejuri Darshan",
+    "slug": "jejuri-darshan",
+    "category": "Pilgrimage",
+    "duration": "Custom Trip",
+    "desc": "Experience a spiritual trip to Jejuri and seek blessings at the famous Khandoba Temple with convenient travel arrangements.",
+    "image": "/images/packages/jejuri.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Khandoba Temple",
+      "Family Friendly",
+      "Custom Pickup",
+      "Well Maintained Fleet",
+      "Professional Driver",
+      "Flexible Timings"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a82",
+    "title": "Ekvira Devi Darshan",
+    "slug": "ekvira-devi-darshan",
+    "category": "Pilgrimage",
+    "duration": "Custom Trip",
+    "desc": "Visit the revered Ekvira Devi Temple and enjoy a smooth pilgrimage journey through scenic surroundings.",
+    "image": "/images/packages/ekvira.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Ekvira Temple",
+      "Scenic Route",
+      "Family Travel",
+      "Custom Planning",
+      "Clean Vehicles",
+      "Comfortable Journey"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a83",
+    "title": "Ganpatipule Tour",
+    "slug": "ganpatipule-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Explore Ganpatipule's temple, beaches, and scenic Konkan coastline with a comfortable family-friendly tour.",
+    "image": "/images/packages/ganpatipule.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Ganpatipule Temple",
+      "Beach Experience",
+      "Konkan Route",
+      "Family Friendly",
+      "AC & Non AC Fleet",
+      "Custom Travel Plan"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a84",
+    "title": "Marleshwar Temple Tour",
+    "slug": "marleshwar-temple-tour",
+    "category": "Pilgrimage",
+    "duration": "Custom Trip",
+    "desc": "Enjoy a spiritual and nature-filled trip to Marleshwar Temple, surrounded by waterfalls and lush greenery.",
+    "image": "/images/packages/marleshwar.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Marleshwar Temple",
+      "Waterfall Views",
+      "Nature Route",
+      "Comfortable Travel",
+      "Custom Pickup",
+      "Professional Driver"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a85",
+    "title": "Tarkarli Beach Tour",
+    "slug": "tarkarli-beach-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Experience Tarkarli's pristine beaches, coastal beauty, and peaceful atmosphere with a comfortable travel package.",
+    "image": "/images/packages/tarkarli.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Tarkarli Beach",
+      "Scenic Konkan Route",
+      "Family Tour",
+      "Group Travel",
+      "Flexible Schedule",
+      "Comfortable Journey"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.773Z",
+    "updatedAt": "2026-06-30T16:54:07.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a86",
+    "title": "Malvan Tour",
+    "slug": "malvan-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Discover Malvan's beaches, local culture, and historic Sindhudurg Fort while traveling in complete comfort.",
+    "image": "/images/packages/malvan.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Malvan Beach",
+      "Sindhudurg Fort",
+      "Family Friendly",
+      "Custom Travel",
+      "AC & Non AC Vehicles",
+      "Professional Driver"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.773Z",
+    "updatedAt": "2026-06-30T16:54:07.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a87",
+    "title": "Goa Tour",
+    "slug": "goa-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Enjoy a memorable Goa vacation with famous beaches, vibrant attractions, and a comfortable long-distance journey.",
+    "image": "/images/packages/goa.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Baga Beach",
+      "Calangute Beach",
+      "Fort Aguada",
+      "Dudhsagar Falls",
+      "Group Tours",
+      "Comfortable Journey"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.773Z",
+    "updatedAt": "2026-06-30T16:54:07.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a88",
+    "title": "Gokarna Tour",
+    "slug": "gokarna-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Explore Gokarna's beautiful beaches, temples, and laid-back coastal atmosphere with flexible travel options.",
+    "image": "/images/packages/gokarna.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Gokarna Beach",
+      "Temple Visits",
+      "Long Distance Travel",
+      "Family Friendly",
+      "Flexible Schedule",
+      "Professional Driver"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.773Z",
+    "updatedAt": "2026-06-30T16:54:07.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a89",
+    "title": "Murudeshwar Tour",
+    "slug": "murudeshwar-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Visit the iconic Murudeshwar Temple and enjoy breathtaking coastal views on a comfortable family tour.",
+    "image": "/images/packages/murudeshwar.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Murudeshwar Temple",
+      "Coastal Views",
+      "Comfortable Travel",
+      "Family Tours",
+      "Custom Route",
+      "AC & Non AC Fleet"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.773Z",
+    "updatedAt": "2026-06-30T16:54:07.773Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a77",
+    "title": "Alibaug Beach Tour",
+    "slug": "alibaug-beach-tour",
+    "category": "Weekend Trips",
+    "duration": "1 Night / 2 Days",
+    "desc": "Relax at Alibaug's beautiful beaches and explore coastal attractions with a comfortable and hassle-free travel experience.",
+    "image": "/images/packages/alibaug.jpg",
+    "gallery": [
+      {
+        "image": "https://imgs.search.brave.com/vkFUKdGws0Ioy2kEXIcGIGFvWpVp2_dCszg2UjxlBg0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YTIudGhyaWxsb3Bo/aWxpYS5jb20vaW1h/Z2VzL3Bob3Rvcy8w/MDAvMDM2LzQ4My9v/cmlnaW5hbC8xNjAz/NTUxMjE1XzE1NTMz/NDQ1Nzdfc2h1dHRl/cnN0b2NrXzE0Mjk2/NTIxMS5qcGcuanBn/P2dyYXZpdHk9Y2Vu/dGVyJndpZHRoPTc1/MiZoZWlnaHQ9NDUw/JmNyb3A9ZmlsbCZx/dWFsaXR5PWF1dG8m/ZmV0Y2hfZm9ybWF0/PWF1dG8mZmxhZ3M9/c3RyaXBfcHJvZmls/ZSZmb3JtYXQ9anBn/JnNpZ25fdXJsPXRy/dWU",
+        "title": "",
+        "_id": "6a43f4af10a3c920353b0a78"
+      }
+    ],
+    "featured": true,
+    "active": true,
+    "pricing": {
+      "ac": 18000,
+      "nonAc": 16000,
+      "tollIncluded": false,
+      "customQuote": false
+    },
+    "highlights": [
+      "Alibaug Beach",
+      "Nagaon Beach",
+      "Kolaba Fort",
+      "Kashid Beach",
+      "AC & Non AC Vehicles",
+      "Family Friendly Travel"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.775Z",
+    "updatedAt": "2026-06-30T17:03:32.052Z",
+    "__v": 2
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a7a",
+    "title": "Matheran Hill Station Tour",
+    "slug": "matheran-hill-station-tour",
+    "category": "Weekend Trips",
+    "duration": "1 Day / Custom",
+    "desc": "Visit the charming hill station of Matheran and enjoy panoramic viewpoints, nature trails, and peaceful surroundings.",
+    "image": "/images/packages/matheran.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "ac": 18000,
+      "nonAc": 16000,
+      "tollIncluded": false,
+      "customQuote": false
+    },
+    "highlights": [
+      "Panorama Point",
+      "Echo Point",
+      "Charlotte Lake",
+      "Louisa Point",
+      "Family Friendly",
+      "Comfortable Travel"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a7c",
+    "title": "Daman Coastal Tour",
+    "slug": "daman-coastal-tour",
+    "category": "Weekend Trips",
+    "duration": "Custom Trip",
+    "desc": "Enjoy a memorable trip to Daman featuring beaches, historic landmarks, and a relaxing coastal atmosphere.",
+    "image": "/images/packages/daman.jpg",
+    "gallery": [],
+    "featured": false,
+    "active": true,
+    "pricing": {
+      "tollIncluded": true,
+      "customQuote": true
+    },
+    "highlights": [
+      "Daman Beach",
+      "Fort Area",
+      "Family Travel",
+      "Group Tours",
+      "Flexible Timing",
+      "Comfortable Journey"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  },
+  {
+    "_id": "6a43f4af10a3c920353b0a76",
+    "title": "Mahabaleshwar Tour",
+    "slug": "mahabaleshwar-tour",
+    "category": "Family Tours",
+    "duration": "2 Night / 3 Days",
+    "desc": "Experience the beauty of Mahabaleshwar with lush valleys, strawberry gardens, scenic viewpoints, and a refreshing hill station atmosphere.",
+    "image": "/images/packages/mahabaleshwar.jpg",
+    "gallery": [],
+    "featured": true,
+    "active": true,
+    "pricing": {
+      "ac": 28000,
+      "nonAc": 26000,
+      "tollIncluded": false,
+      "customQuote": false
+    },
+    "highlights": [
+      "Venna Lake",
+      "Mapro Garden",
+      "Arthur Seat Point",
+      "Panchgani Table Land",
+      "Professional Driver",
+      "Flexible Pickup & Drop"
+    ],
+    "isDeleted": false,
+    "deletedAt": null,
+    "createdAt": "2026-06-30T16:54:07.772Z",
+    "updatedAt": "2026-06-30T16:54:07.772Z",
+    "__v": 0
+  }
+]
