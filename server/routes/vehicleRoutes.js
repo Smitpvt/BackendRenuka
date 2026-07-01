@@ -5,7 +5,8 @@ import {
   getAdminVehicles,
   createVehicle,
   updateVehicle,
-  deleteVehicle
+  deleteVehicle,
+  reorderVehicles
 } from '../controllers/vehicleController.js';
 import { protect } from '../middleware/auth.js';
 import upload from '../middleware/upload.js';
@@ -25,6 +26,7 @@ const vehicleUploadFields = upload.fields([
 
 // Admin protected write routes
 router.use(protect);
+router.put('/reorder', reorderVehicles);
 router.post('/', vehicleUploadFields, createVehicle);
 router.put('/:id', vehicleUploadFields, updateVehicle);
 router.delete('/:id', deleteVehicle);

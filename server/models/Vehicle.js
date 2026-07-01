@@ -111,6 +111,10 @@ const vehicleSchema = new mongoose.Schema(
       required: [true, 'A vehicle must have a description'],
       trim: true,
     },
+    displayOrder: {
+      type: Number,
+      default: 0,
+    },
     isDeleted: {
       type: Boolean,
       default: false,

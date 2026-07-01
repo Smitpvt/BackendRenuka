@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import Vehicle from '../models/Vehicle.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
@@ -22,7 +23,7 @@ function normalizeGallery(value) {
  */
 export const getPublicVehicles = catchAsync(async (req, res, next) => {
   const vehicles = await Vehicle.find({ active: true, isDeleted: { $ne: true } })
-    .sort({ createdAt: -1 });
+    .sort({ type: 1, displayOrder: 1 });
 
   res.status(200).json({
     success: true,
@@ -70,7 +71,7 @@ export const getAdminVehicles = catchAsync(async (req, res, next) => {
 
   const total = await Vehicle.countDocuments(query);
   const vehicles = await Vehicle.find(query)
-    .sort({ createdAt: -1 })
+    .sort({ type: 1, displayOrder: 1 })
     .skip(skip)
     .limit(limitNum);
 
@@ -155,6 +156,17 @@ export const createVehicle = catchAsync(async (req, res, next) => {
     }
   }
 
+  // Get next displayOrder in category
+  const maxVehicle = await Vehicle.findOne({
+    type,
+    isDeleted: { $ne: true }
+  })
+    .sort({ displayOrder: -1 })
+    .select('displayOrder')
+    .lean();
+
+  const nextDisplayOrder = maxVehicle ? (maxVehicle.displayOrder || 0) + 1 : 0;
+
   const newVehicle = await Vehicle.create({
     name,
     seats: Number(seats),
@@ -170,7 +182,8 @@ export const createVehicle = catchAsync(async (req, res, next) => {
     amenities: parsedAmenities,
     pricing: parsedPricing,
     image: imageUrl,
-    gallery: galleryUrls
+    gallery: galleryUrls,
+    displayOrder: nextDisplayOrder
   });
 
   res.status(201).json({
@@ -314,5 +327,75 @@ export const deleteVehicle = catchAsync(async (req, res, next) => {
   res.status(200).json({
     success: true,
     message: 'Vehicle soft-deleted successfully.'
+  });
+});
+
+/**
+ * Reorder vehicles manually using bulkWrite.
+ */
+export const reorderVehicles = catchAsync(async (req, res, next) => {
+  const updates = req.body;
+
+  // 1. Validate: request body is an array
+  if (!Array.isArray(updates)) {
+    return next(new AppError('Request body must be an array of vehicle updates.', 400));
+  }
+
+  // 2. Validate: every object contains _id and numeric displayOrder, and check duplicate IDs
+  const seenIds = new Set();
+  for (let i = 0; i < updates.length; i++) {
+    const item = updates[i];
+    
+    if (typeof item !== 'object' || item === null) {
+      return next(new AppError(`Item at index ${i} must be an object.`, 400));
+    }
+
+    const { _id, displayOrder } = item;
+
+    if (!_id) {
+      return next(new AppError(`Item at index ${i} is missing the '_id' field.`, 400));
+    }
+
+    if (displayOrder === undefined || displayOrder === null || typeof displayOrder !== 'number' || isNaN(displayOrder)) {
+      return next(new AppError(`Item at index ${i} must contain a numeric 'displayOrder'.`, 400));
+    }
+
+    if (seenIds.has(_id.toString())) {
+      return next(new AppError(`Duplicate vehicle ID detected: ${_id}`, 400));
+    }
+    seenIds.add(_id.toString());
+  }
+
+  // 3. Validate: check if all IDs exist in the database and are valid ObjectIds
+  const { Types } = mongoose;
+  for (const id of seenIds) {
+    if (!Types.ObjectId.isValid(id)) {
+      return next(new AppError(`Invalid vehicle ID format: ${id}`, 400));
+    }
+  }
+
+  const existingVehiclesCount = await Vehicle.countDocuments({
+    _id: { $in: Array.from(seenIds) },
+    isDeleted: { $ne: true }
+  });
+
+  if (existingVehiclesCount !== seenIds.size) {
+    return next(new AppError('One or more vehicle IDs are invalid or do not exist.', 400));
+  }
+
+  // 4. Database update: build bulkWrite operations updating ONLY displayOrder
+  const bulkOps = updates.map(item => ({
+    updateOne: {
+      filter: { _id: item._id },
+      update: { $set: { displayOrder: item.displayOrder } }
+    }
+  }));
+
+  await Vehicle.bulkWrite(bulkOps);
+
+  // 5. Response matching project's style
+  res.status(200).json({
+    success: true,
+    message: 'Vehicle order updated successfully.'
   });
 });
