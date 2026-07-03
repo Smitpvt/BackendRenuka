@@ -107,6 +107,7 @@ const runTests = async () => {
     console.log('   Calculated nonAc (min):', createdPkg.pricing.nonAc); // should be 4000
     console.log('   Vehicles length:', createdPkg.pricing.vehicles.length);
     console.log('   First vehicle name:', createdPkg.pricing.vehicles[0].vehicle.name);
+    console.log('   First vehicle displayCategory:', createdPkg.pricing.vehicles[0].vehicle.displayCategory);
 
     if (createdPkg.pricing.ac !== 5000 || createdPkg.pricing.nonAc !== 4000) {
       throw new Error(`Min price calculations incorrect! Expected 5000/4000, got ${createdPkg.pricing.ac}/${createdPkg.pricing.nonAc}`);

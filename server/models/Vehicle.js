@@ -126,8 +126,18 @@ const vehicleSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
 );
+
+// Virtual field for computed frontend display category
+vehicleSchema.virtual('displayCategory').get(function () {
+  if (this.type === 'SUV / Cars') {
+    return 'Car (6/7 Seater)';
+  }
+  return this.type;
+});
 
 // Auto slug generation
 vehicleSchema.pre('save', async function (next) {
