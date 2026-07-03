@@ -9,8 +9,8 @@ import Vehicle from '../models/Vehicle.js';
 import Testimonial from '../models/Testimonial.js';
 
 // Raw data imports from client
-import { packages as rawPackages } from '../../client/src/data/packages.js';
-import { vehicles as rawVehicles } from '../../client/src/data/vehicles.js';
+import { packages as rawPackages } from '../../../renuka/client/src/data/packages.js';
+import { vehicles as rawVehicles } from '../../../renuka/client/src/data/vehicles.js';
 
 dotenv.config();
 
@@ -85,48 +85,7 @@ const runSeeder = async () => {
       console.log(`-> Created Super Admin account: (${superAdminEmail})`);
     }
 
-    // 2. Seed Packages
-    console.log('Seeding Packages...');
-    const packagesCount = await Package.countDocuments();
-    if (packagesCount > 0) {
-      console.log('-> Packages collection is not empty. Skipping packages seeding.');
-    } else {
-      const packagesToSeed = rawPackages.map((pkg) => {
-        const isCustomQuote = !pkg.acPrice || pkg.acPrice.toLowerCase().includes('custom');
-        const ac = parsePrice(pkg.acPrice);
-        const nonAc = parsePrice(pkg.nonAcPrice);
-
-        // Map local asset image paths directly
-        const mainImage = pkg.image || (pkg.gallery && pkg.gallery[0]) || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&fit=crop';
-        
-        return {
-          title: pkg.title,
-          slug: pkg.slug,
-          category: ['Weekend Trips', 'Pilgrimage', 'Family Tours', 'Corporate Tours'].includes(pkg.category)
-            ? pkg.category
-            : 'Weekend Trips', // Fallback safety
-          duration: pkg.duration || '1 Day',
-          desc: pkg.desc || pkg.title,
-          image: mainImage,
-          gallery: pkg.gallery || [],
-          featured: pkg.featured || false,
-          active: true,
-          pricing: {
-            ac,
-            nonAc,
-            tollIncluded: !pkg.additionalToll,
-            customQuote: isCustomQuote
-          },
-          highlights: pkg.highlights || []
-        };
-      });
-
-      // Insert packages
-      await Package.create(packagesToSeed);
-      console.log(`-> Seeded ${packagesToSeed.length} packages successfully!`);
-    }
-
-    // 3. Seed Vehicles
+    // 2. Seed Vehicles
     console.log('Seeding Vehicles...');
     // Drop existing to ensure new schema structure is seeded properly
     await Vehicle.deleteMany({});
@@ -215,8 +174,86 @@ const runSeeder = async () => {
     });
 
     // Insert vehicles
-    await Vehicle.create(vehiclesToSeed);
-    console.log(`-> Seeded ${vehiclesToSeed.length} vehicles successfully!`);
+    const seededVehicles = await Vehicle.create(vehiclesToSeed);
+    console.log(`-> Seeded ${seededVehicles.length} vehicles successfully!`);
+
+    // 3. Seed Packages
+    console.log('Seeding Packages...');
+    // Drop existing to ensure fresh data and avoid duplicate key / references issues
+    await Package.deleteMany({});
+    console.log('-> Cleared existing packages for fresh seeding.');
+
+    const getVehiclePriceMultiplier = (vehicleType) => {
+      if (vehicleType === 'SUV / Cars') return 0.8;
+      if (vehicleType === 'Mini Bus') return 1.4;
+      if (vehicleType === 'Luxury Bus') return 2.2;
+      return 1.0;
+    };
+
+    const packagesToSeed = rawPackages.map((pkg) => {
+      const isCustomQuote = !pkg.acPrice || pkg.acPrice.toLowerCase().includes('custom');
+      const ac = parsePrice(pkg.acPrice);
+      const nonAc = parsePrice(pkg.nonAcPrice);
+
+      // Build vehicles pricing array if not a custom quote
+      let vehiclesPricing = [];
+      if (!isCustomQuote && ac) {
+        vehiclesPricing = seededVehicles.map(vh => {
+          const mult = getVehiclePriceMultiplier(vh.type);
+          const calculatedAc = Math.round((ac * mult) / 100) * 100;
+          const calculatedNonAc = nonAc ? Math.round((nonAc * mult) / 100) * 100 : undefined;
+          return {
+            vehicle: vh._id,
+            ac: calculatedAc,
+            nonAc: calculatedNonAc,
+            note: `Estimated rate for ${vh.name}`
+          };
+        });
+      }
+
+      // Legacy pricing falls back to the minimum price or default values
+      let finalAc = ac;
+      let finalNonAc = nonAc;
+      if (vehiclesPricing.length > 0) {
+        finalAc = Math.min(...vehiclesPricing.map(v => v.ac));
+        const nonAcPrices = vehiclesPricing.map(v => v.nonAc).filter(p => typeof p === 'number' && p > 0);
+        finalNonAc = nonAcPrices.length > 0 ? Math.min(...nonAcPrices) : undefined;
+      }
+
+      const mainImage = pkg.image || (pkg.gallery && pkg.gallery[0]) || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&fit=crop';
+      
+      const finalGallery = (pkg.gallery || []).map((item) => {
+        if (typeof item === 'string') {
+          return { image: item, title: '' };
+        }
+        return { image: item.image, title: item.title || '' };
+      });
+
+      return {
+        title: pkg.title,
+        slug: pkg.slug,
+        category: ['Weekend Trips', 'Pilgrimage', 'Family Tours', 'Corporate Tours'].includes(pkg.category)
+          ? pkg.category
+          : 'Weekend Trips', // Fallback safety
+        duration: pkg.duration || '1 Day',
+        desc: pkg.desc || pkg.title,
+        image: mainImage,
+        gallery: finalGallery,
+        featured: pkg.featured || false,
+        active: true,
+        pricing: {
+          ac: finalAc,
+          nonAc: finalNonAc,
+          tollIncluded: !pkg.additionalToll,
+          customQuote: isCustomQuote,
+          vehicles: vehiclesPricing
+        },
+        highlights: pkg.highlights || []
+      };
+    });
+
+    await Package.create(packagesToSeed);
+    console.log(`-> Seeded ${packagesToSeed.length} packages successfully!`);
 
     // 4. Seed Testimonials
     console.log('Seeding Testimonials...');

@@ -1,4 +1,6 @@
+import mongoose from 'mongoose';
 import Package from '../models/Package.js';
+import Vehicle from '../models/Vehicle.js';
 import AppError from '../utils/appError.js';
 import catchAsync from '../utils/catchAsync.js';
 import { uploadSingleImage } from '../utils/cloudinaryHelper.js';
@@ -22,12 +24,21 @@ function normalizeGallery(value) {
  */
 export const getPublicPackages = catchAsync(async (req, res, next) => {
   const packages = await Package.find({ active: true, isDeleted: { $ne: true } })
+    .populate('pricing.vehicles.vehicle')
     .sort({ createdAt: -1 });
+
+  const cleanedPackages = packages.map(pkg => {
+    const obj = pkg.toObject();
+    if (obj.pricing && Array.isArray(obj.pricing.vehicles)) {
+      obj.pricing.vehicles = obj.pricing.vehicles.filter(v => v.vehicle !== null && v.vehicle !== undefined);
+    }
+    return obj;
+  });
 
   res.status(200).json({
     success: true,
-    results: packages.length,
-    packages
+    results: cleanedPackages.length,
+    packages: cleanedPackages
   });
 });
 
@@ -35,15 +46,21 @@ export const getPublicPackages = catchAsync(async (req, res, next) => {
  * Public single package details fetch by slug.
  */
 export const getPackageBySlug = catchAsync(async (req, res, next) => {
-  const pkg = await Package.findOne({ slug: req.params.slug, active: true, isDeleted: { $ne: true } });
+  const pkg = await Package.findOne({ slug: req.params.slug, active: true, isDeleted: { $ne: true } })
+    .populate('pricing.vehicles.vehicle');
 
   if (!pkg) {
     return next(new AppError('No package found with that slug or it is inactive.', 404));
   }
 
+  const pkgObj = pkg.toObject();
+  if (pkgObj.pricing && Array.isArray(pkgObj.pricing.vehicles)) {
+    pkgObj.pricing.vehicles = pkgObj.pricing.vehicles.filter(v => v.vehicle !== null && v.vehicle !== undefined);
+  }
+
   res.status(200).json({
     success: true,
-    package: pkg
+    package: pkgObj
   });
 });
 
@@ -69,16 +86,25 @@ export const getAdminPackages = catchAsync(async (req, res, next) => {
 
   const total = await Package.countDocuments(query);
   const packages = await Package.find(query)
+    .populate('pricing.vehicles.vehicle')
     .sort({ createdAt: -1 })
     .skip(skip)
     .limit(limitNum);
+
+  const cleanedPackages = packages.map(pkg => {
+    const obj = pkg.toObject();
+    if (obj.pricing && Array.isArray(obj.pricing.vehicles)) {
+      obj.pricing.vehicles = obj.pricing.vehicles.filter(v => v.vehicle !== null && v.vehicle !== undefined);
+    }
+    return obj;
+  });
 
   res.status(200).json({
     success: true,
     total,
     page: pageNum,
     pages: Math.ceil(total / limitNum),
-    packages
+    packages: cleanedPackages
   });
 });
 
@@ -108,6 +134,77 @@ export const createPackage = catchAsync(async (req, res, next) => {
     }
   } else {
     parsedPricing = pricing || {};
+  }
+
+  // Validate and structure vehicle pricing
+  let vehiclesPricing = [];
+  if (parsedPricing.vehicles) {
+    if (!Array.isArray(parsedPricing.vehicles)) {
+      return next(new AppError('pricing.vehicles must be an array.', 400));
+    }
+
+    const vehicleIds = new Set();
+    for (const entry of parsedPricing.vehicles) {
+      const { vehicle, ac, nonAc, note } = entry;
+
+      if (!vehicle) {
+        return next(new AppError('Each vehicle pricing entry must have a vehicle reference.', 400));
+      }
+
+      // Check if valid ObjectId
+      if (!mongoose.Types.ObjectId.isValid(vehicle)) {
+        return next(new AppError(`Invalid vehicle ID: ${vehicle}`, 400));
+      }
+
+      // Check duplicate vehicles
+      const vehicleIdStr = vehicle.toString();
+      if (vehicleIds.has(vehicleIdStr)) {
+        return next(new AppError(`Duplicate vehicle reference found in pricing: ${vehicle}`, 400));
+      }
+      vehicleIds.add(vehicleIdStr);
+
+      // Validate AC price
+      const acNum = Number(ac);
+      if (isNaN(acNum) || acNum <= 0) {
+        return next(new AppError(`AC price must be a positive number for vehicle ${vehicle}.`, 400));
+      }
+
+      // Validate non-AC price if provided
+      let cleanNonAc;
+      if (nonAc !== undefined && nonAc !== null && nonAc !== '') {
+        const nonAcNum = Number(nonAc);
+        if (isNaN(nonAcNum) || nonAcNum <= 0) {
+          return next(new AppError(`Non-AC price must be a positive number if provided for vehicle ${vehicle}.`, 400));
+        }
+        cleanNonAc = nonAcNum;
+      }
+
+      // Verify vehicle exists and is active and not deleted
+      const vehicleDoc = await Vehicle.findOne({ _id: vehicle, isDeleted: { $ne: true } });
+      if (!vehicleDoc) {
+        return next(new AppError(`Vehicle not found or is deleted: ${vehicle}`, 400));
+      }
+      if (!vehicleDoc.active) {
+        return next(new AppError(`Vehicle is inactive: ${vehicleDoc.name}`, 400));
+      }
+
+      vehiclesPricing.push({
+        vehicle,
+        ac: acNum,
+        nonAc: cleanNonAc,
+        note: note ? note.trim() : ''
+      });
+    }
+  }
+
+  // Determine backward compatible ac / nonAc pricing
+  let finalAc = parsedPricing.ac ? Number(parsedPricing.ac) : undefined;
+  let finalNonAc = parsedPricing.nonAc ? Number(parsedPricing.nonAc) : undefined;
+
+  if (vehiclesPricing.length > 0) {
+    finalAc = Math.min(...vehiclesPricing.map(v => v.ac));
+    const nonAcPrices = vehiclesPricing.map(v => v.nonAc).filter(p => typeof p === 'number' && p > 0);
+    finalNonAc = nonAcPrices.length > 0 ? Math.min(...nonAcPrices) : undefined;
   }
 
   // Parse highlights
@@ -191,17 +288,26 @@ export const createPackage = catchAsync(async (req, res, next) => {
     featured: featured === 'true' || featured === true,
     active: active !== 'false' && active !== false,
     pricing: {
-      ac: parsedPricing.ac ? Number(parsedPricing.ac) : undefined,
-      nonAc: parsedPricing.nonAc ? Number(parsedPricing.nonAc) : undefined,
+      ac: finalAc,
+      nonAc: finalNonAc,
       tollIncluded: parsedPricing.tollIncluded === 'true' || parsedPricing.tollIncluded === true,
-      customQuote: parsedPricing.customQuote === 'true' || parsedPricing.customQuote === true
+      customQuote: parsedPricing.customQuote === 'true' || parsedPricing.customQuote === true,
+      vehicles: vehiclesPricing
     },
     highlights: parsedHighlights
   });
 
+  // Populate vehicle references for response
+  const populatedPackage = await Package.findById(newPackage._id).populate('pricing.vehicles.vehicle');
+
+  const pkgObj = populatedPackage.toObject();
+  if (pkgObj.pricing && Array.isArray(pkgObj.pricing.vehicles)) {
+    pkgObj.pricing.vehicles = pkgObj.pricing.vehicles.filter(v => v.vehicle !== null && v.vehicle !== undefined);
+  }
+
   res.status(201).json({
     success: true,
-    package: newPackage
+    package: pkgObj
   });
 });
 
@@ -235,6 +341,10 @@ export const updatePackage = catchAsync(async (req, res, next) => {
 
   // Parse pricing
   let parsedPricing = {};
+  let vehiclesPricing = [];
+  let finalAc;
+  let finalNonAc;
+
   if (pricing) {
     if (typeof pricing === 'string') {
       try {
@@ -244,6 +354,74 @@ export const updatePackage = catchAsync(async (req, res, next) => {
       }
     } else {
       parsedPricing = pricing;
+    }
+
+    if (parsedPricing.vehicles) {
+      if (!Array.isArray(parsedPricing.vehicles)) {
+        return next(new AppError('pricing.vehicles must be an array.', 400));
+      }
+
+      const vehicleIds = new Set();
+      for (const entry of parsedPricing.vehicles) {
+        const { vehicle, ac, nonAc, note } = entry;
+
+        if (!vehicle) {
+          return next(new AppError('Each vehicle pricing entry must have a vehicle reference.', 400));
+        }
+
+        // Check if valid ObjectId
+        if (!mongoose.Types.ObjectId.isValid(vehicle)) {
+          return next(new AppError(`Invalid vehicle ID: ${vehicle}`, 400));
+        }
+
+        // Check duplicate vehicles
+        const vehicleIdStr = vehicle.toString();
+        if (vehicleIds.has(vehicleIdStr)) {
+          return next(new AppError(`Duplicate vehicle reference found in pricing: ${vehicle}`, 400));
+        }
+        vehicleIds.add(vehicleIdStr);
+
+        // Validate AC price
+        const acNum = Number(ac);
+        if (isNaN(acNum) || acNum <= 0) {
+          return next(new AppError(`AC price must be a positive number for vehicle ${vehicle}.`, 400));
+        }
+
+        // Validate non-AC price if provided
+        let cleanNonAc;
+        if (nonAc !== undefined && nonAc !== null && nonAc !== '') {
+          const nonAcNum = Number(nonAc);
+          if (isNaN(nonAcNum) || nonAcNum <= 0) {
+            return next(new AppError(`Non-AC price must be a positive number if provided for vehicle ${vehicle}.`, 400));
+          }
+          cleanNonAc = nonAcNum;
+        }
+
+        // Verify vehicle exists and is active and not deleted
+        const vehicleDoc = await Vehicle.findOne({ _id: vehicle, isDeleted: { $ne: true } });
+        if (!vehicleDoc) {
+          return next(new AppError(`Vehicle not found or is deleted: ${vehicle}`, 400));
+        }
+        if (!vehicleDoc.active) {
+          return next(new AppError(`Vehicle is inactive: ${vehicleDoc.name}`, 400));
+        }
+
+        vehiclesPricing.push({
+          vehicle,
+          ac: acNum,
+          nonAc: cleanNonAc,
+          note: note ? note.trim() : ''
+        });
+      }
+    }
+
+    finalAc = parsedPricing.ac ? Number(parsedPricing.ac) : undefined;
+    finalNonAc = parsedPricing.nonAc ? Number(parsedPricing.nonAc) : undefined;
+
+    if (vehiclesPricing.length > 0) {
+      finalAc = Math.min(...vehiclesPricing.map(v => v.ac));
+      const nonAcPrices = vehiclesPricing.map(v => v.nonAc).filter(p => typeof p === 'number' && p > 0);
+      finalNonAc = nonAcPrices.length > 0 ? Math.min(...nonAcPrices) : undefined;
     }
   }
 
@@ -345,18 +523,28 @@ export const updatePackage = catchAsync(async (req, res, next) => {
 
   if (pricing) {
     pkg.pricing = {
-      ac: parsedPricing.ac ? Number(parsedPricing.ac) : undefined,
-      nonAc: parsedPricing.nonAc ? Number(parsedPricing.nonAc) : undefined,
+      ac: finalAc,
+      nonAc: finalNonAc,
       tollIncluded: parsedPricing.tollIncluded === 'true' || parsedPricing.tollIncluded === true,
-      customQuote: parsedPricing.customQuote === 'true' || parsedPricing.customQuote === true
+      customQuote: parsedPricing.customQuote === 'true' || parsedPricing.customQuote === true,
+      vehicles: vehiclesPricing
     };
+    pkg.markModified('pricing');
   }
 
   await pkg.save();
 
+  // Populate vehicle references for response
+  const populatedPackage = await Package.findById(pkg._id).populate('pricing.vehicles.vehicle');
+
+  const pkgObj = populatedPackage.toObject();
+  if (pkgObj.pricing && Array.isArray(pkgObj.pricing.vehicles)) {
+    pkgObj.pricing.vehicles = pkgObj.pricing.vehicles.filter(v => v.vehicle !== null && v.vehicle !== undefined);
+  }
+
   res.status(200).json({
     success: true,
-    package: pkg
+    package: pkgObj
   });
 });
 

@@ -8,7 +8,8 @@
     "start": "node server.js",
     "dev": "node --watch server.js",
     "seed": "node scripts/seed.js",
-    "migrate:display-order": "node scripts/migrateDisplayOrder.js"
+    "migrate:display-order": "node scripts/migrateDisplayOrder.js",
+    "migrate:package-pricing": "node scripts/migratePackagePricing.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

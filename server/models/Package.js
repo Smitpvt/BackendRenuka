@@ -56,7 +56,8 @@ const packageSchema = new mongoose.Schema(
       ac: {
         type: Number,
         required: function () {
-          return !this.pricing || !this.pricing.customQuote;
+          const hasVehicles = this.pricing && Array.isArray(this.pricing.vehicles) && this.pricing.vehicles.length > 0;
+          return !this.pricing || (!this.pricing.customQuote && !hasVehicles);
         },
       },
       nonAc: {
@@ -70,6 +71,26 @@ const packageSchema = new mongoose.Schema(
         type: Boolean,
         default: false,
       },
+      vehicles: [
+        {
+          vehicle: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Vehicle',
+            required: [true, 'Pricing entry must reference a vehicle'],
+          },
+          ac: {
+            type: Number,
+            required: [true, 'AC Price is required for the vehicle'],
+          },
+          nonAc: {
+            type: Number,
+          },
+          note: {
+            type: String,
+            default: '',
+          },
+        },
+      ],
     },
     highlights: {
       type: [String],
