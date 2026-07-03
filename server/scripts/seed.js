@@ -87,173 +87,179 @@ const runSeeder = async () => {
 
     // 2. Seed Vehicles
     console.log('Seeding Vehicles...');
-    // Drop existing to ensure new schema structure is seeded properly
-    await Vehicle.deleteMany({});
-    console.log('-> Cleared existing vehicles for fresh seeding.');
+    const vehiclesCount = await Vehicle.countDocuments();
+    let seededVehicles = [];
 
-    const getDefaultPricing = (name, seatsCount) => {
-      const text = (name || '').toLowerCase();
-      
-      if (text.includes('sedan') || text.includes('dzire') || text.includes('etios')) {
-        return { nonAc: 14, ac: 14 };
-      }
-      if (text.includes('ertiga')) {
-        return { nonAc: 16, ac: 16 };
-      }
-      if (text.includes('innova')) {
-        return { nonAc: 20, ac: 20 };
-      }
-      
-      // Base on seats
-      if (seatsCount === 13) return { nonAc: 22, ac: 24 };
-      if (seatsCount === 17) return { nonAc: 23, ac: 26 };
-      if (seatsCount === 20) return { nonAc: 24, ac: 27 };
-      if (seatsCount === 26) return { nonAc: 30, ac: 32 };
-      if (seatsCount === 35 || seatsCount === 37) return { nonAc: 38, ac: 45 };
-      if (seatsCount === 40) return { nonAc: 44, ac: 50 };
-      if (seatsCount === 45) return { nonAc: 46, ac: 52 };
-      if (seatsCount === 49) return { nonAc: 48, ac: 56 };
+    if (vehiclesCount > 0) {
+      console.log('-> Vehicles collection is not empty. Skipping vehicles seeding to protect existing data.');
+      seededVehicles = await Vehicle.find({ isDeleted: { $ne: true } });
+    } else {
+      const getDefaultPricing = (name, seatsCount) => {
+        const text = (name || '').toLowerCase();
+        
+        if (text.includes('sedan') || text.includes('dzire') || text.includes('etios')) {
+          return { nonAc: 14, ac: 14 };
+        }
+        if (text.includes('ertiga')) {
+          return { nonAc: 16, ac: 16 };
+        }
+        if (text.includes('innova')) {
+          return { nonAc: 20, ac: 20 };
+        }
+        
+        // Base on seats
+        if (seatsCount === 13) return { nonAc: 22, ac: 24 };
+        if (seatsCount === 17) return { nonAc: 23, ac: 26 };
+        if (seatsCount === 20) return { nonAc: 24, ac: 27 };
+        if (seatsCount === 26) return { nonAc: 30, ac: 32 };
+        if (seatsCount === 35 || seatsCount === 37) return { nonAc: 38, ac: 45 };
+        if (seatsCount === 40) return { nonAc: 44, ac: 50 };
+        if (seatsCount === 45) return { nonAc: 46, ac: 52 };
+        if (seatsCount === 49) return { nonAc: 48, ac: 56 };
 
-      // Fallback map by seat range
-      if (seatsCount <= 5) return { nonAc: 14, ac: 14 }; // Sedan
-      if (seatsCount <= 7) return { nonAc: 20, ac: 20 }; // Innova
-      if (seatsCount <= 13) return { nonAc: 22, ac: 24 };
-      if (seatsCount <= 17) return { nonAc: 23, ac: 26 };
-      if (seatsCount <= 20) return { nonAc: 24, ac: 27 };
-      if (seatsCount <= 26) return { nonAc: 30, ac: 32 };
-      if (seatsCount <= 37) return { nonAc: 38, ac: 45 };
-      if (seatsCount <= 40) return { nonAc: 44, ac: 50 };
-      if (seatsCount <= 45) return { nonAc: 46, ac: 52 };
-      return { nonAc: 48, ac: 56 }; // 49+ Seater
-    };
-
-    const vehiclesToSeed = rawVehicles.map((vh) => {
-      const seatsCount = parseSeats(vh.seats);
-      const vehicleType = determineVehicleType(seatsCount, vh.name);
-      const fuelType = determineFuelType(vh);
-
-      const mainImage = vh.image || (vh.gallery && vh.gallery[0]) || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&fit=crop';
-      const basePricing = getDefaultPricing(vh.name, seatsCount);
-
-      const specs = {
-        capacity: vh.specifications?.capacity || `${seatsCount} Passengers + 1 Driver`,
-        luggage: vh.specifications?.luggage || 'Varies by occupancy',
-        engine: vh.specifications?.engine || 'Standard Diesel / Petrol',
-        comfort: vh.specifications?.comfort || 'Pushback Comfortable Seats',
-        airConditioning: vh.ac !== false ? 'Dual AC Climate Control Vents' : 'Non-AC / Heater Option'
+        // Fallback map by seat range
+        if (seatsCount <= 5) return { nonAc: 14, ac: 14 }; // Sedan
+        if (seatsCount <= 7) return { nonAc: 20, ac: 20 }; // Innova
+        if (seatsCount <= 13) return { nonAc: 22, ac: 24 };
+        if (seatsCount <= 17) return { nonAc: 23, ac: 26 };
+        if (seatsCount <= 20) return { nonAc: 24, ac: 27 };
+        if (seatsCount <= 26) return { nonAc: 30, ac: 32 };
+        if (seatsCount <= 37) return { nonAc: 38, ac: 45 };
+        if (seatsCount <= 40) return { nonAc: 44, ac: 50 };
+        if (seatsCount <= 45) return { nonAc: 46, ac: 52 };
+        return { nonAc: 48, ac: 56 }; // 49+ Seater
       };
 
-      return {
-        name: vh.name.trim(),
-        slug: vh.slug.toLowerCase().trim(),
-        image: mainImage,
-        seats: seatsCount,
-        type: vehicleType,
-        ac: vh.ac !== false,
-        registrationNumber: '',
-        fuelType,
-        gallery: vh.gallery || [],
-        amenities: vh.amenities || [],
-        specifications: specs,
-        cabinDescription: vh.description || `This vehicle features ${seatsCount} seats configured in an optimized layout to allow max legroom and ease of movement. Headrests are adjustable, and secondary rows contain reclining options for long distance highway travel.`,
-        pricing: {
-          type: 'per_km',
-          ac: basePricing.ac,
-          nonAc: basePricing.nonAc,
-          label: 'Per KM',
-          description: 'Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.',
-          minimumKm: 300,
-          driverAllowance: 500,
-          tollIncluded: false,
-          parkingIncluded: false
-        },
-        status: 'Available',
-        active: true,
-        description: vh.description || `${vh.name} rental vehicle`
-      };
-    });
+      const vehiclesToSeed = rawVehicles.map((vh) => {
+        const seatsCount = parseSeats(vh.seats);
+        const vehicleType = determineVehicleType(seatsCount, vh.name);
+        const fuelType = determineFuelType(vh);
 
-    // Insert vehicles
-    const seededVehicles = await Vehicle.create(vehiclesToSeed);
-    console.log(`-> Seeded ${seededVehicles.length} vehicles successfully!`);
+        const mainImage = vh.image || (vh.gallery && vh.gallery[0]) || 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&fit=crop';
+        const basePricing = getDefaultPricing(vh.name, seatsCount);
+
+        const specs = {
+          capacity: vh.specifications?.capacity || `${seatsCount} Passengers + 1 Driver`,
+          luggage: vh.specifications?.luggage || 'Varies by occupancy',
+          engine: vh.specifications?.engine || 'Standard Diesel / Petrol',
+          comfort: vh.specifications?.comfort || 'Pushback Comfortable Seats',
+          airConditioning: vh.ac !== false ? 'Dual AC Climate Control Vents' : 'Non-AC / Heater Option'
+        };
+
+        return {
+          name: vh.name.trim(),
+          slug: vh.slug.toLowerCase().trim(),
+          image: mainImage,
+          seats: seatsCount,
+          type: vehicleType,
+          ac: vh.ac !== false,
+          registrationNumber: '',
+          fuelType,
+          gallery: vh.gallery || [],
+          amenities: vh.amenities || [],
+          specifications: specs,
+          cabinDescription: vh.description || `This vehicle features ${seatsCount} seats configured in an optimized layout to allow max legroom and ease of movement. Headrests are adjustable, and secondary rows contain reclining options for long distance highway travel.`,
+          pricing: {
+            type: 'per_km',
+            ac: basePricing.ac,
+            nonAc: basePricing.nonAc,
+            label: 'Per KM',
+            description: 'Rates are variable based on duration, route, and seasons. Contact us for the best quote guarantee.',
+            minimumKm: 300,
+            driverAllowance: 500,
+            tollIncluded: false,
+            parkingIncluded: false
+          },
+          status: 'Available',
+          active: true,
+          description: vh.description || `${vh.name} rental vehicle`
+        };
+      });
+
+      // Insert vehicles
+      seededVehicles = await Vehicle.create(vehiclesToSeed);
+      console.log(`-> Seeded ${seededVehicles.length} vehicles successfully!`);
+    }
 
     // 3. Seed Packages
     console.log('Seeding Packages...');
-    // Drop existing to ensure fresh data and avoid duplicate key / references issues
-    await Package.deleteMany({});
-    console.log('-> Cleared existing packages for fresh seeding.');
+    const packagesCount = await Package.countDocuments();
 
-    const getVehiclePriceMultiplier = (vehicleType) => {
-      if (vehicleType === 'SUV / Cars') return 0.8;
-      if (vehicleType === 'Mini Bus') return 1.4;
-      if (vehicleType === 'Luxury Bus') return 2.2;
-      return 1.0;
-    };
+    if (packagesCount > 0) {
+      console.log('-> Packages collection is not empty. Skipping packages seeding to protect existing data.');
+    } else {
+      const getVehiclePriceMultiplier = (vehicleType) => {
+        if (vehicleType === 'SUV / Cars') return 0.8;
+        if (vehicleType === 'Mini Bus') return 1.4;
+        if (vehicleType === 'Luxury Bus') return 2.2;
+        return 1.0;
+      };
 
-    const packagesToSeed = rawPackages.map((pkg) => {
-      const isCustomQuote = !pkg.acPrice || pkg.acPrice.toLowerCase().includes('custom');
-      const ac = parsePrice(pkg.acPrice);
-      const nonAc = parsePrice(pkg.nonAcPrice);
+      const packagesToSeed = rawPackages.map((pkg) => {
+        const isCustomQuote = !pkg.acPrice || pkg.acPrice.toLowerCase().includes('custom');
+        const ac = parsePrice(pkg.acPrice);
+        const nonAc = parsePrice(pkg.nonAcPrice);
 
-      // Build vehicles pricing array if not a custom quote
-      let vehiclesPricing = [];
-      if (!isCustomQuote && ac) {
-        vehiclesPricing = seededVehicles.map(vh => {
-          const mult = getVehiclePriceMultiplier(vh.type);
-          const calculatedAc = Math.round((ac * mult) / 100) * 100;
-          const calculatedNonAc = nonAc ? Math.round((nonAc * mult) / 100) * 100 : undefined;
-          return {
-            vehicle: vh._id,
-            ac: calculatedAc,
-            nonAc: calculatedNonAc,
-            note: `Estimated rate for ${vh.name}`
-          };
-        });
-      }
-
-      // Legacy pricing falls back to the minimum price or default values
-      let finalAc = ac;
-      let finalNonAc = nonAc;
-      if (vehiclesPricing.length > 0) {
-        finalAc = Math.min(...vehiclesPricing.map(v => v.ac));
-        const nonAcPrices = vehiclesPricing.map(v => v.nonAc).filter(p => typeof p === 'number' && p > 0);
-        finalNonAc = nonAcPrices.length > 0 ? Math.min(...nonAcPrices) : undefined;
-      }
-
-      const mainImage = pkg.image || (pkg.gallery && pkg.gallery[0]) || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&fit=crop';
-      
-      const finalGallery = (pkg.gallery || []).map((item) => {
-        if (typeof item === 'string') {
-          return { image: item, title: '' };
+        // Build vehicles pricing array if not a custom quote
+        let vehiclesPricing = [];
+        if (!isCustomQuote && ac && seededVehicles.length > 0) {
+          vehiclesPricing = seededVehicles.map(vh => {
+            const mult = getVehiclePriceMultiplier(vh.type);
+            const calculatedAc = Math.round((ac * mult) / 100) * 100;
+            const calculatedNonAc = nonAc ? Math.round((nonAc * mult) / 100) * 100 : undefined;
+            return {
+              vehicle: vh._id,
+              ac: calculatedAc,
+              nonAc: calculatedNonAc,
+              note: `Estimated rate for ${vh.name}`
+            };
+          });
         }
-        return { image: item.image, title: item.title || '' };
+
+        // Legacy pricing falls back to the minimum price or default values
+        let finalAc = ac;
+        let finalNonAc = nonAc;
+        if (vehiclesPricing.length > 0) {
+          finalAc = Math.min(...vehiclesPricing.map(v => v.ac));
+          const nonAcPrices = vehiclesPricing.map(v => v.nonAc).filter(p => typeof p === 'number' && p > 0);
+          finalNonAc = nonAcPrices.length > 0 ? Math.min(...nonAcPrices) : undefined;
+        }
+
+        const mainImage = pkg.image || (pkg.gallery && pkg.gallery[0]) || 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&fit=crop';
+        
+        const finalGallery = (pkg.gallery || []).map((item) => {
+          if (typeof item === 'string') {
+            return { image: item, title: '' };
+          }
+          return { image: item.image, title: item.title || '' };
+        });
+
+        return {
+          title: pkg.title,
+          slug: pkg.slug,
+          category: ['Weekend Trips', 'Pilgrimage', 'Family Tours', 'Corporate Tours'].includes(pkg.category)
+            ? pkg.category
+            : 'Weekend Trips', // Fallback safety
+          duration: pkg.duration || '1 Day',
+          desc: pkg.desc || pkg.title,
+          image: mainImage,
+          gallery: finalGallery,
+          featured: pkg.featured || false,
+          active: true,
+          pricing: {
+            ac: finalAc,
+            nonAc: finalNonAc,
+            tollIncluded: !pkg.additionalToll,
+            customQuote: isCustomQuote,
+            vehicles: vehiclesPricing
+          },
+          highlights: pkg.highlights || []
+        };
       });
 
-      return {
-        title: pkg.title,
-        slug: pkg.slug,
-        category: ['Weekend Trips', 'Pilgrimage', 'Family Tours', 'Corporate Tours'].includes(pkg.category)
-          ? pkg.category
-          : 'Weekend Trips', // Fallback safety
-        duration: pkg.duration || '1 Day',
-        desc: pkg.desc || pkg.title,
-        image: mainImage,
-        gallery: finalGallery,
-        featured: pkg.featured || false,
-        active: true,
-        pricing: {
-          ac: finalAc,
-          nonAc: finalNonAc,
-          tollIncluded: !pkg.additionalToll,
-          customQuote: isCustomQuote,
-          vehicles: vehiclesPricing
-        },
-        highlights: pkg.highlights || []
-      };
-    });
-
-    await Package.create(packagesToSeed);
-    console.log(`-> Seeded ${packagesToSeed.length} packages successfully!`);
+      await Package.create(packagesToSeed);
+      console.log(`-> Seeded ${packagesToSeed.length} packages successfully!`);
+    }
 
     // 4. Seed Testimonials
     console.log('Seeding Testimonials...');
