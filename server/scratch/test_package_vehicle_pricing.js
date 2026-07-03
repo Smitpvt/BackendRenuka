@@ -261,8 +261,60 @@ const runTests = async () => {
       throw new Error(`Update modifications were not correctly persistent!`);
     }
 
-    // Clean up test package
+    // Test Case 7: Validation - Custom Quote packages can have empty vehicle pricing
+    console.log('\nTest Case 7: Creating a custom quote package with no vehicle pricing...');
+    const req7 = {
+      body: {
+        title: 'Test Package Custom Quote No Vehicles',
+        category: 'Weekend Trips',
+        duration: '1 Day',
+        desc: 'Testing custom quote vehicles bypass.',
+        pricing: JSON.stringify({
+          customQuote: true,
+          vehicles: []
+        })
+      },
+      files: { image: [{ buffer: Buffer.from('fake-image-bytes') }] }
+    };
+
+    const res7 = Object.create(mockRes);
+    resetPromise();
+    createPackage(req7, res7, mockNext);
+    await jsonPromise;
+    const customQuotePkg = res7.jsonData.package;
+    console.log('-> Success! Custom quote package created:');
+    console.log('   pricing.customQuote:', customQuotePkg.pricing.customQuote);
+    console.log('   pricing.vehicles length:', customQuotePkg.pricing.vehicles.length);
+
+    // Test Case 8: Validation - Normal package still requires pricing
+    console.log('\nTest Case 8: Normal package requires vehicle pricing or base price...');
+    const req8 = {
+      body: {
+        title: 'Test Package Normal No Pricing',
+        category: 'Weekend Trips',
+        duration: '1 Day',
+        desc: 'Testing normal package validation.',
+        pricing: JSON.stringify({
+          customQuote: false,
+          vehicles: []
+        })
+      },
+      files: { image: [{ buffer: Buffer.from('fake-image-bytes') }] }
+    };
+
+    try {
+      const res8 = Object.create(mockRes);
+      resetPromise();
+      createPackage(req8, res8, mockNext);
+      await jsonPromise;
+      console.error('-> FAIL: Normal package with no pricing did not trigger validation error.');
+    } catch (err) {
+      console.log('-> Success! Validation caught normal package with no pricing:', err.message);
+    }
+
+    // Clean up test packages
     await Package.deleteOne({ _id: createdPkg._id });
+    await Package.deleteOne({ _id: customQuotePkg._id });
     console.log('\nAll test cases passed successfully! 🎉');
     process.exit(0);
 

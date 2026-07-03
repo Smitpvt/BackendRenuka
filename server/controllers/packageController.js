@@ -138,7 +138,9 @@ export const createPackage = catchAsync(async (req, res, next) => {
 
   // Validate and structure vehicle pricing
   let vehiclesPricing = [];
-  if (parsedPricing.vehicles) {
+  const isCustomQuote = parsedPricing.customQuote === 'true' || parsedPricing.customQuote === true;
+
+  if (!isCustomQuote && parsedPricing.vehicles) {
     if (!Array.isArray(parsedPricing.vehicles)) {
       return next(new AppError('pricing.vehicles must be an array.', 400));
     }
@@ -356,7 +358,9 @@ export const updatePackage = catchAsync(async (req, res, next) => {
       parsedPricing = pricing;
     }
 
-    if (parsedPricing.vehicles) {
+    const isCustomQuote = parsedPricing.customQuote === 'true' || parsedPricing.customQuote === true;
+
+    if (!isCustomQuote && parsedPricing.vehicles) {
       if (!Array.isArray(parsedPricing.vehicles)) {
         return next(new AppError('pricing.vehicles must be an array.', 400));
       }
